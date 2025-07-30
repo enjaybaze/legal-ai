@@ -13,29 +13,6 @@ GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 MODEL_NAME = "gemini-2.5-pro"
 ALLOWED_EXTENSIONS = {'mp4', 'mov', 'avi', 'mp3', 'wav', 'flac', 'aac', 'pdf', 'docx', 'txt'}
 
-# --- Client Initialization ---
-storage_client = None
-model = None
-
-try:
-    if GCS_BUCKET_NAME:
-        storage_client = storage.Client(project=GCP_PROJECT_ID)
-    else:
-        print("GCS_BUCKET_NAME environment variable not set. File uploads will be disabled.")
-except Exception as e:
-    print(f"Error initializing Google Cloud Storage client: {e}")
-
-try:
-    if GCP_PROJECT_ID and GCP_LOCATION:
-        vertexai.init(project=GCP_PROJECT_ID, location=GCP_LOCATION)
-        model = GenerativeModel(MODEL_NAME)
-        model.system_instruction = SYSTEM_PROMPT # Set system prompt once
-    else:
-        print("GCP_PROJECT_ID and/or GCP_LOCATION environment variables not set. AI chat will be disabled.")
-except Exception as e:
-    print(f"Error initializing Vertex AI: {e}")
-
-
 # --- System Persona (truncated for brevity in code block) ---
 SYSTEM_PROMPT = """
 [START OF PERSONA AND DIRECTIVES PROMPT]
@@ -155,6 +132,29 @@ Lexi's Ideal Response: "You're very welcome! I'm happy I could help. And I can d
 
 [END OF PERSONA AND DIRECTIVES PROMPT]
 """ # The full prompt is loaded into the model during initialization
+
+# --- Client Initialization ---
+storage_client = None
+model = None
+
+try:
+    if GCS_BUCKET_NAME:
+        storage_client = storage.Client(project=GCP_PROJECT_ID)
+    else:
+        print("GCS_BUCKET_NAME environment variable not set. File uploads will be disabled.")
+except Exception as e:
+    print(f"Error initializing Google Cloud Storage client: {e}")
+
+try:
+    if GCP_PROJECT_ID and GCP_LOCATION:
+        vertexai.init(project=GCP_PROJECT_ID, location=GCP_LOCATION)
+        model = GenerativeModel(MODEL_NAME)
+        model.system_instruction = SYSTEM_PROMPT # Set system prompt once
+    else:
+        print("GCP_PROJECT_ID and/or GCP_LOCATION environment variables not set. AI chat will be disabled.")
+except Exception as e:
+    print(f"Error initializing Vertex AI: {e}")
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/tmp/uploads' # A temporary folder for uploads
