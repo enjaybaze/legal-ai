@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexi - Your AI Legal Navigator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1>Lexi</h1>
+            <p>Your AI Legal Navigator</p>
+        </header>
+        <main class="chat-box" id="chat-box">
+            <!-- Chat messages will be appended here -->
+            <div class="chat-message bot-message">
+                <p>Hello! I'm Lexi. I can help you understand your rights and analyze legal situations. How can I help you today?</p>
+            </div>
+        </main>
+        <footer class="chat-input-area">
+            <div class="input-wrapper">
+                <textarea id="user-input" placeholder="Ask Lexi a question, or describe your situation..."></textarea>
+                <button id="upload-btn" class="control-btn" title="Upload File">
+                    <span class="material-symbols-outlined">attach_file</span>
+                </button>
+                <input type="file" id="file-input" style="display: none;" accept="audio/*,video/*">
+                <button id="mic-btn" class="control-btn" title="Use Microphone">
+                    <span class="material-symbols-outlined">mic</span>
+                </button>
+                <button id="send-btn" class="control-btn" title="Send Message">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
